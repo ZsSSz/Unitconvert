@@ -64,11 +64,15 @@ class ViewController: UIViewController {
     
     func isNumberValid(inputText: String?, value: Double, label: UILabel) -> Bool {
         if (inputText != "") && Double(inputText!) == nil {
-            label.text = "Invalid value"
+            label.text = "Invalid value!"
             return false
         }
         if value < 0 {
             label.text = "Use a positive number!"
+            return false
+        }
+        if value >= 100000000000000.00 {
+            label.text = "Number is too large!"
             return false
         }
         return true
@@ -81,6 +85,7 @@ class ViewController: UIViewController {
         } else {
             result = value / number
         }
+        //For readability I rounded up the number, and only display it till the second decimal place.
         return(Double(round(result * 100) / 100))
     }
     
@@ -97,14 +102,13 @@ class ViewController: UIViewController {
 
     @objc func calcWeight(srcObj: UITextField) {
         let value = Double(srcObj.text!) ?? 0.0
-        
         if !isNumberValid(inputText: srcObj.text, value: value, label: weightResultField) {
             return
         }
+        // From a design point of view and for simplicity sake, I wanted to use one function- mathOperation- to calculate the distance and weight. Because I didn't want to swap "Lb to Kg" and "Kg to Lb" on my screen, I decided to use 0.45359237 reciprocal which is (1 / 0.45359237) = 2.20462262185 this way I could keep the design as I like it, and use only one function for this operation.
         let weightResult = mathOperation(status: weightStatus, value: value, number: 2.20462262185)
-        let measure = weightStatus ? " Lb" : " Kg"
+        let measure = weightStatus ? " Lbs" : " Kg"
         weightResultField.text = String(weightResult) + measure
     }
-
 }
 
