@@ -19,14 +19,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var mlKmLabel: UILabel!
     @IBOutlet weak var kmMlLabel: UILabel!
     
-    @IBOutlet weak var LdkgLabel: UILabel! //javitani
-    @IBOutlet weak var kgLdLabek: UILabel! //javitani
+    @IBOutlet weak var lbKgLabel: UILabel!
+    @IBOutlet weak var kgLbLabel: UILabel!
     
     @IBOutlet weak var weightValue: UITextField!
     @IBOutlet weak var lengthValue: UITextField!
     
     var lengthStatus:Bool = true
-    var weightStauts:Bool = true //javitani
+    var weightStatus:Bool = true 
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +34,7 @@ class ViewController: UIViewController {
         kmMlLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         
         weightSwitch.addTarget(self, action: #selector(toggleWeight), for: UIControl.Event.valueChanged)
-           kgLdLabek.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+           kgLbLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         
         lengthValue.addTarget(self, action: #selector(calcLength), for: UIControl.Event.editingChanged)
         weightValue.addTarget(self, action: #selector(calcWeight), for: UIControl.Event.editingChanged)
@@ -53,13 +53,13 @@ class ViewController: UIViewController {
     }
     
     @objc func toggleWeight(srcObj: UISwitch) {
-        weightStauts = srcObj.isOn
-        if weightStauts {
-            kgLdLabek.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            LdkgLabel.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        weightStatus = srcObj.isOn
+        if weightStatus {
+            kgLbLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            lbKgLabel.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         } else {
-            kgLdLabek.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-            LdkgLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            kgLbLabel.textColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+            lbKgLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         }
         self.calcWeight(srcObj: weightValue)
     }
@@ -101,7 +101,7 @@ class ViewController: UIViewController {
             weightResultField.text = "Use a positive number!"
             return
         }
-        if weightStauts {
+        if weightStatus {
             weightResult = value / 0.45359237
         } else {
             weightResult = value * 0.45359237
